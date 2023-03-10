@@ -1,12 +1,16 @@
 const express = require('express')
 const app = express()
 const db = require("../db/database.js")
+const cors = require('cors')
+
 
 const PORT = 8000;
 
 app.listen(PORT, () => {
     console.log(`Server running on ${PORT}`)
 })
+
+app.use(cors());
 
 app.get("/api/medication", (req, res, next) => {
     const sql = "select * from medication"

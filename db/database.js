@@ -16,7 +16,7 @@ let db = new sqlite3.Database(DBSOURCE, (err) => {
             weight text, 
             description text, 
             expirationDate text,
-            pieces num,
+            pieces num
             )`,
         (err) => {
             if (err) {

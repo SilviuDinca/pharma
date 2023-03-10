@@ -1,6 +1,3 @@
-'use strict'
-import { axios } from "axios"
-
 async function getMedication() {
     let res = await axios.get('http://localhost:8000/api/medication/')
     let data = res;
