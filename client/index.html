@@ -27,66 +27,59 @@
       alt="Pharmacy Health"
     />
     <div class="container">
-      <div class="row row-cols-4" style="gap: 2rem 2rem">
-        <div class="card" colstyle="width: 18rem;">
-          <div class="card-body">
-            <h5 class="card-title">Aspirina</h5>
-            <h6 class="card-subtitle mb-2 text-muted">20 mg</h6>
-            <p class="card-text">
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </p>
-            <div class="d-flex justify-content-between">
-              <p>20/03/2020</p>
-              <p>Nr. buc: 3</p>
+        <div class="card card-body">
+          <form class="row g-3 needs-validation" novalidate>
+            <div class="col-md-4">
+              <label for="validationCustom01" class="form-label">Name:</label>
+              <input type="text" class="form-control input-name" id="validationCustom01" required>
+              <div class="valid-feedback validation">
+                Looks good!
+              </div>
             </div>
-          </div>
+            <div class="col-md-4">
+              <label for="validationCustom02" class="form-label">Dose:</label>
+              <input type="text" class="form-control input-dose" id="validationCustom02" required>
+              <div class="valid-feedback validation">
+                Looks good!
+              </div>
+            </div>
+            <div class="col-md-4">
+              <label for="validationCustomDescription" class="form-label">Description:</label>
+              <div class="input-group has-validation">
+                <input type="text" class="form-control input-description" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
+                <div class="invalid-feedback validation">
+                  Please choose a username.
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <label for="validationCustom03" class="form-label">Expiration Date:</label>
+              <input type="text" class="form-control input-expiration" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
+              <div class="invalid-feedback validation">
+                Please provide a valid city.
+              </div>
+            </div>
+            <div class="col-md-3">
+              <label for="validationCustom04" class="form-label">Pieces:</label>
+              <input type="number" class="form-control input-pieces" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
+              <div class="invalid-feedback validation">
+                Please select a valid state.
+              </div>
+            </div>
+            
+            <div class="col-12">
+            </div>
+          </form>
+          <button class="btn-submit btn btn-primary">Submit form</button>
         </div>
-        <div class="card col" style="width: 18rem">
-          <div class="card-body">
-            <h5 class="card-title">Aspirina</h5>
-            <h6 class="card-subtitle mb-2 text-muted">20 mg</h6>
-            <p class="card-text">
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </p>
-            <div class="d-flex justify-content-between">
-              <p>20/03/2020</p>
-              <p>Nr. buc: 3</p>
-            </div>
-          </div>
-        </div>
-        <div class="card col" style="width: 18rem">
-          <div class="card-body">
-            <h5 class="card-title">Aspirina</h5>
-            <h6 class="card-subtitle mb-2 text-muted">20 mg</h6>
-            <p class="card-text">
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </p>
-            <div class="d-flex justify-content-between">
-              <p>20/03/2020</p>
-              <p>Nr. buc: 3</p>
-            </div>
-          </div>
-        </div>
-        <div class="card col" style="width: 18rem">
-          <div class="card-body">
-            <h5 class="card-title">Aspirina</h5>
-            <h6 class="card-subtitle mb-2 text-muted">20 mg</h6>
-            <p class="card-text">
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </p>
-            <div class="d-flex justify-content-between">
-              <p>20/03/2020</p>
-              <p>Nr. buc: 3</p>
-            </div>
-          </div>
+      <div class="section">
+        <div class="medicine row row-cols-4" style="gap: 2rem 2rem">
         </div>
       </div>
     </div>
+    
   </body>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="./js/dashboardClient.js"></script>
   <script src="./js/dashboardPharmaceutist.js"></script>
