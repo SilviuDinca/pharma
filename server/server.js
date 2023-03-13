@@ -59,42 +59,54 @@ app.get("/api/medication", (req, res, next) => {
   });
 });
 
-// app.patch("/api/medication/:id", (req, res, next) => {
-//   let data = {
-//       name: req.body.name,
-//       dose: req.body.dose,
-//       description: req.body.description,
-//       expirationDate: req.body.expirationDate,
-//       pieces: req.body.pieces
-//   }
-//   db.run(
-//       `UPDATE medication set 
-//          name = COALESCE(?,name), 
-//          dose = COALESCE(?,dose), 
-//          description = COALESCE(?,description),
-//          expirationDate = COALESCE(?,expirationDate),
-//          pieces = COALESCE(?,pieces)
-//          WHERE id = ?`,
-//       [data.name, data.dose, data.description,data.expirationDate,data.pieces, req.params.id],
-//       function (err, result) {
-//           if (err){
-//               res.status(400).json({"error": res.message})
-//               return;
-//           }
-//           res.json({
-//               message: "success",
-//               data: data,
-//               changes: this.changes
-//           })
-//   });
-// })
+app.put("/api/medication/:id", (req, res, next) => {
+  let data = {
+    name: req.body.name,
+    dose: req.body.dose,
+    description: req.body.description,
+    expirationDate: req.body.expirationDate,
+    pieces: req.body.pieces,
+  };
+  db.run(
+    `UPDATE medication set 
+         name = COALESCE(?,name), 
+         dose = COALESCE(?,dose), 
+         description = COALESCE(?,description),
+         expirationDate = COALESCE(?,expirationDate),
+         pieces = COALESCE(?,pieces)
+         WHERE id = ?`,
+    [
+      data.name,
+      data.dose,
+      data.description,
+      data.expirationDate,
+      data.pieces,
+      req.params.id,
+    ],
+    function (err, result) {
+      if (err) {
+        res.status(400).json({ error: res.message });
+        return;
+      }
+      res.json({
+        message: "success",
+        data: data,
+        changes: this.changes,
+      });
+    }
+  );
+});
 
-// app.delete("/api/medication/:id", (req, res, next) => {
-//   db.run("DELETE FROM medication WHERE id = ?", req.params.id, function (err, result) {
-//     if (err) {
-//       res.status(400).json({ error: res.message });
-//       return;
-//     }
-//     res.json({ message: "deleted", changes: this.changes });
-//   });
-// });
+app.delete("/api/medication/:id", (req, res, next) => {
+  db.run(
+    "DELETE FROM medication WHERE id = ?",
+    req.params.id,
+    function (err, result) {
+      if (err) {
+        res.status(400).json({ error: res.message });
+        return;
+      }
+      res.json({ message: "deleted", changes: this.changes });
+    }
+  );
+});
