@@ -8,6 +8,52 @@ const inputDescription = document.querySelector(".input-description");
 const inputExpiration = document.querySelector(".input-expiration");
 const inputPieces = document.querySelector(".input-pieces");
 const addMedicine = document.querySelector(".btn-submit");
+const btnSignUp = document.querySelector(".btn-sign-up");
+const btnSignIn = document.querySelector(".btn-sign-in");
+const showSignIn = document.querySelector(".show-signIn");
+const hiddenSignUp = document.querySelector(".hidden-signUp");
+const imageContainer = document.querySelector(".image-container");
+const containerSection = document.querySelector(".container-section");
+
+async function signUp() {
+  const createUser = {
+    username: document.getElementById("inputUsername").value,
+    password: document.getElementById("inputPassword").value,
+    address: document.getElementById("inputAddress").value,
+    cnp: document.getElementById("inputCNP").value,
+    city: document.getElementById("inputCity").value,
+    phone: document.getElementById("inputPhone").value,
+    pharmaceutist: document.getElementById("pharmaceutistRadio").checked,
+    patient: document.getElementById("patientRadio").checked,
+  };
+  const res = await axios.post("http://localhost:8000/api/user", createUser);
+}
+
+async function signIn() {
+  const createUser = {
+    username: document.getElementById("signInUsername").value,
+    password: document.getElementById("signInPassword").value,
+  };
+  const res = await axios.post("http://localhost:8000/api/login", createUser);
+  if (res.data.data[0]) {
+    showSignIn.classList.remove("d-grid");
+    showSignIn.classList.add("d-none");
+    imageContainer.classList.remove("d-none");
+    containerSection.classList.remove("d-none");
+    imageContainer.classList.add("d-block");
+    containerSection.classList.add("d-grid");
+  }
+}
+
+btnSignIn.addEventListener("click", signIn);
+
+btnSignUp.addEventListener("click", () => {
+  signUp();
+  hiddenSignUp.classList.remove("d-grid");
+  hiddenSignUp.classList.add("d-none");
+  showSignIn.classList.remove("d-none");
+  showSignIn.classList.add("d-grid");
+});
 
 async function deleteMedication(id) {
   console.log(id);

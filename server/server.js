@@ -3,6 +3,8 @@ const app = express();
 const db = require("../db/database.js");
 const cors = require("cors");
 const bodyParser = require("body-parser");
+const md5 = require("md5");
+const cookieParser = require("cookie-parser");
 
 const PORT = 8000;
 
@@ -11,8 +13,64 @@ app.listen(PORT, () => {
 });
 
 app.use(cors());
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+app.post("/api/user", (req, res, next) => {
+  const data = {
+    username: req.body.username,
+    password: md5(req.body.password),
+    address: req.body.address,
+    cnp: req.body.cnp,
+    city: req.body.city,
+    phone: req.body.phone,
+    pharmaceutist: req.body.pharmaceutist,
+    patient: req.body.patient,
+  };
+  const sql =
+    "INSERT INTO user (username, password, address, cnp, city, phone, pharmaceutist, patient) VALUES (?,?,?,?,?,?,?,?)";
+  const params = [
+    data.username,
+    data.password,
+    data.address,
+    data.cnp,
+    data.city,
+    data.phone,
+    data.pharmaceutist,
+    data.patient,
+  ];
+  db.run(sql, params, function (err, result) {
+    if (err) {
+      res.status(400).json({ error: err.message });
+      return;
+    }
+    res.json({
+      message: "success",
+      data: data,
+      id: this.lastID,
+    });
+  });
+});
+
+app.post("/api/login", (req, res, next) => {
+  const data = {
+    username: req.body.username,
+    password: md5(req.body.password),
+  };
+  var sql = "select * from user WHERE username = ? AND password = ?";
+  var params = [data.username, data.password];
+  db.all(sql, params, (err, rows) => {
+    if (err) {
+      res.status(400).json({ error: err.message });
+      return;
+    }
+    res.json({
+      message: "success",
+      data: rows,
+    });
+  });
+});
 
 app.post("/api/medication", (req, res, next) => {
   let data = {

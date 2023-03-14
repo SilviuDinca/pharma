@@ -1,11 +1,11 @@
 let sqlite3 = require("sqlite3").verbose();
+// let md5 = require('md5')
 
 const DBSOURCE = "db.sqlite";
 
 let db = new sqlite3.Database(DBSOURCE, (err) => {
   if (err) {
     // Cannot open database
-    console.error(err.message);
     throw err;
   } else {
     console.log("Connected to the SQLite database.");
@@ -55,6 +55,19 @@ let db = new sqlite3.Database(DBSOURCE, (err) => {
           ]);
         }
       }
+    );
+    db.run(
+      `CREATE TABLE user (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            username text, 
+            password text, 
+            address text, 
+            cnp text,
+            city text,
+            phone text,
+            pharmaceutist boolean,
+            patient boolean
+            )`
     );
   }
 });

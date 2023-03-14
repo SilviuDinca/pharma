@@ -13,20 +13,21 @@
     />
   </head>
   <body>
-    <nav class="navbar bg-primary position-fixed z-3" style="width: 100%">
+    <nav class="navbar bg-primary" style="width: 100%">
       <div class="container-fluid">
         <a class="navbar-brand text-white d-flex align-items-center" href="#">
           Pharma App
         </a>
       </div>
     </nav>
+
     <img
       src="./img/PHARMACY HEALTH.png"
-      class="img-fluid mb-5 z-0"
+      class="img-fluid mb-5 z-0 d-none image-container"
       width="100%"
       alt="Pharmacy Health"
     />
-    <div class="container">
+    <div class="container d-none container-section">
       <p>
         <button
           class="btn btn-primary"
@@ -187,6 +188,77 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+    <div class="show-signIn container mt-5 d-none">
+      <form class="row g-3">
+        <div class="form-floating col-md-6">
+          <input type="text" class="form-control" id="signInUsername" />
+          <label for="signInUsername" class="form-label">Username</label>
+        </div>
+        <div class="form-floating col-md-6">
+          <input type="password" class="form-control" id="signInPassword" />
+          <label for="signInPassword" class="form-label">Password</label>
+        </div>
+      </form>
+      <div class="col-12">
+        <button class="btn-sign-in btn btn-primary">Sign In</button>
+      </div>
+    </div>
+
+    <div class="hidden-signUp container mt-5 d-grid">
+      <form class="row g-3">
+        <div class="form-floating col-md-6">
+          <input type="text" class="form-control" id="inputUsername" />
+          <label for="inputUsername" class="form-label">Username</label>
+        </div>
+        <div class="form-floating col-md-6">
+          <input type="password" class="form-control" id="inputPassword" />
+          <label for="inputPassword" class="form-label">Password</label>
+        </div>
+        <div class="form-floating col-md-6">
+          <input type="text" class="form-control" id="inputAddress" />
+          <label for="inputAddress" class="form-label">Address</label>
+        </div>
+        <div class="form-floating col-md-6">
+          <input type="text" class="form-control" id="inputCNP" />
+          <label for="inputCNP" class="form-label">CNP</label>
+        </div>
+        <div class="form-floating col-md-6">
+          <input type="text" class="form-control" id="inputCity" />
+          <label for="inputCity" class="form-label">City</label>
+        </div>
+        <div class="form-floating col-md-6">
+          <input type="tel" class="form-control" id="inputPhone" />
+          <label for="inputPhone" class="form-label">Phone</label>
+        </div>
+        <div class="col-12">
+          <div class="form-check">
+            <input
+              class="form-radio-input"
+              type="radio"
+              name="inlineRadioOptions"
+              id="pharmaceutistRadio"
+            />
+            <label class="form-radio-label" for="pharmaceutistRadio">
+              Pharmaceutist
+            </label>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="form-check">
+            <input
+              class="form-radio-input"
+              type="radio"
+              name="inlineRadioOptions"
+              id="patientRadio"
+            />
+            <label class="form-radio-label" for="patientRadio"> Patient </label>
+          </div>
+        </div>
+      </form>
+      <div class="col-12">
+        <button class="btn-sign-up btn btn-primary">Sign Up</button>
       </div>
     </div>
   </body>
