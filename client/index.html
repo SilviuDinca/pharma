@@ -47,21 +47,21 @@
               <label for="validationCustom01" class="form-label">Name:</label>
               <input
                 type="text"
-                class="form-control input-name"
+                class="form-control inputs input-name"
                 id="validationCustom01"
                 required
               />
-              <div class="valid-feedback validation">Looks good!</div>
+              <div class="invalid-group-input invalid-feedback validation">Please insert all fields!!</div>
             </div>
             <div class="col-md-4">
               <label for="validationCustom02" class="form-label">Dose:</label>
               <input
                 type="text"
-                class="form-control input-dose"
+                class="form-control inputs input-dose"
                 id="validationCustom02"
                 required
               />
-              <div class="valid-feedback validation">Looks good!</div>
+              <div class="invalid-group-input invalid-feedback validation">Please insert all fields!!</div>
             </div>
             <div class="col-md-4">
               <label for="validationCustomDescription" class="form-label"
@@ -70,13 +70,13 @@
               <div class="input-group has-validation">
                 <input
                   type="text"
-                  class="form-control input-description"
+                  class="form-control inputs input-description"
                   id="validationCustomUsername"
                   aria-describedby="inputGroupPrepend"
                   required
                 />
-                <div class="invalid-feedback validation">
-                  Please choose a username.
+                <div class="invalid-group-input invalid-feedback validation">
+                  Please insert all fields!!
                 </div>
               </div>
             </div>
@@ -86,26 +86,26 @@
               >
               <input
                 type="text"
-                class="form-control input-expiration"
+                class="form-control inputs input-expiration"
                 id="validationCustomUsername"
                 aria-describedby="inputGroupPrepend"
                 required
               />
-              <div class="invalid-feedback validation">
-                Please provide a valid city.
+              <div class="invalid-group-input invalid-feedback validation">
+                Please insert all fields!!
               </div>
             </div>
             <div class="col-md-3">
               <label for="validationCustom04" class="form-label">Pieces:</label>
               <input
                 type="number"
-                class="form-control input-pieces"
+                class="form-control inputs input-pieces"
                 id="validationCustomUsername"
                 aria-describedby="inputGroupPrepend"
                 required
               />
-              <div class="invalid-feedback validation">
-                Please select a valid state.
+              <div class="invalid-group-input invalid-feedback validation">
+                Please insert all fields!!
               </div>
             </div>
 
@@ -193,11 +193,22 @@
     <div class="show-signIn container mt-5 d-none">
       <form class="row g-3">
         <div class="form-floating col-md-6">
-          <input type="text" class="form-control" id="signInUsername" />
+          <input
+            type="text"
+            class="form-control"
+            id="signInUsername"
+            required
+          />
           <label for="signInUsername" class="form-label">Username</label>
+          <div class="wrong-input"></div>
         </div>
         <div class="form-floating col-md-6">
-          <input type="password" class="form-control" id="signInPassword" />
+          <input
+            type="password"
+            class="form-control"
+            id="signInPassword"
+            required
+          />
           <label for="signInPassword" class="form-label">Password</label>
         </div>
       </form>
@@ -209,28 +220,76 @@
     <div class="hidden-signUp container mt-5 d-grid">
       <form class="row g-3">
         <div class="form-floating col-md-6">
-          <input type="text" class="form-control" id="inputUsername" />
+          <input
+            type="text"
+            class="form-control inputs"
+            id="inputUsername"
+            required
+          />
           <label for="inputUsername" class="form-label">Username</label>
+          <div class="invalid-group-input invalid-feedback validation">
+            Please insert all fields!!
+          </div>
         </div>
         <div class="form-floating col-md-6">
-          <input type="password" class="form-control" id="inputPassword" />
+          <input
+            type="password"
+            class="form-control inputs"
+            id="inputPassword"
+            required
+          />
           <label for="inputPassword" class="form-label">Password</label>
+          <div class="invalid-group-input invalid-feedback validation">
+            Please insert all fields!!
+          </div>
         </div>
         <div class="form-floating col-md-6">
-          <input type="text" class="form-control" id="inputAddress" />
+          <input
+            type="text"
+            class="form-control inputs"
+            id="inputAddress"
+            required
+          />
           <label for="inputAddress" class="form-label">Address</label>
+          <div class="invalid-group-input invalid-feedback validation">
+            Please insert all fields!!
+          </div>
         </div>
         <div class="form-floating col-md-6">
-          <input type="text" class="form-control" id="inputCNP" />
+          <input
+            type="text"
+            class="form-control inputs"
+            id="inputCNP"
+            required
+          />
           <label for="inputCNP" class="form-label">CNP</label>
+          <div class="invalid-group-input invalid-feedback validation">
+            Please insert all fields!!
+          </div>
         </div>
         <div class="form-floating col-md-6">
-          <input type="text" class="form-control" id="inputCity" />
+          <input
+            type="text"
+            class="form-control inputs"
+            id="inputCity"
+            required
+          />
           <label for="inputCity" class="form-label">City</label>
+          <div class="invalid-group-input invalid-feedback validation">
+            Please insert all fields!!
+          </div>
         </div>
         <div class="form-floating col-md-6">
-          <input type="tel" class="form-control" id="inputPhone" />
+          <input
+            type="tel"
+            class="form-control inputs"
+            id="inputPhone"
+            required
+          />
           <label for="inputPhone" class="form-label">Phone</label>
+          <div class="invalid-group-input invalid-feedback validation">
+            Please insert all fields!!
+          </div>
         </div>
         <div class="col-12">
           <div class="form-check">
