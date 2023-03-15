@@ -95,9 +95,16 @@ async function deleteMedication(id) {
   await getMedication();
 }
 
+async function getPatients() {
+  const res = await axios.get("http://localhost:8000/api/user");
+  showPatients(res.data.data);
+}
+
 async function getMedication() {
   const res = await axios.get("http://localhost:8000/api/medication");
   showMedicine(res.data.data);
+  getPatients();
+
   addMedicine.addEventListener("click", () => {
     if (
       inputName.value === "" ||
@@ -143,6 +150,38 @@ function editMedication(item) {
   document.getElementById("floatingPieces").value = parsedItem.pieces;
   document.getElementById("exampleModal").dataset.medicationId = parsedItem.id;
 }
+
+const showPatients = (data) => {
+  let accordionSection = document.querySelector(".accordion-section");
+  const oneAccordion = document.querySelector(".one-accordion");
+  accordionSection = "";
+
+  data.forEach((item) => {
+    accordionSection += `
+    <h2 class="accordion-header mb-2" id="headingOne">
+  <div class="d-flex">
+  <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="bi bi-pencil"></i></button>
+  <button type="button" class="btn btn-outline-danger btn-del"><i class="bi bi-trash3"></i></button>
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  ${item.username}
+                </button>
+                </div>
+              </h2>
+              <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  <div class="row">
+                    <div class="col-md-6"><strong>Address:</strong> ${item.address}</div>
+                    <div class="col-md-6"><strong>City:</strong> ${item.address}</div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6"><strong>Phone:</strong> ${item.phone}</div>
+                  </div>
+                </div>
+              </div>
+    `;
+  });
+  oneAccordion.innerHTML = accordionSection;
+};
 
 const showMedicine = (data) => {
   cards = "";

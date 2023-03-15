@@ -72,6 +72,21 @@ app.post("/api/login", (req, res, next) => {
   });
 });
 
+app.get("/api/user", (req, res, next) => {
+  var sql = "select * from user"
+  var params = []
+  db.all(sql, params, (err, rows) => {
+      if (err) {
+        res.status(400).json({"error":err.message});
+        return;
+      }
+      res.json({
+          "message":"success",
+          "data":rows
+      })
+    });
+});
+
 app.post("/api/medication", (req, res, next) => {
   let data = {
     name: req.body.name,

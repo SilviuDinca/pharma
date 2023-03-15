@@ -30,6 +30,56 @@
     <div class="container d-none container-section">
       <p>
         <button
+          class="btn btn-primary small"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvasExample"
+          aria-controls="offcanvasExample"
+        >
+          Patient
+        </button>
+      </p>
+      <div
+        class="offcanvas offcanvas-start"
+        tabindex="-1"
+        id="offcanvasExample"
+        aria-labelledby="offcanvasExampleLabel"
+      >
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="offcanvasExampleLabel">Patients</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="offcanvas"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="offcanvas-body">
+          <div class="col-12">
+            <label for="validationDefaultUsername" class="form-label"
+              >Search patients</label
+            >
+            <div class="input-group">
+              <span class="input-group-text" id="inputSearch"
+                ><i class="bi bi-search"></i
+              ></span>
+              <input
+                type="text"
+                class="form-control"
+                id="validationSearch"
+                aria-describedby="inputSearch"
+                placeholder="Search"
+                required
+              />
+            </div>
+          </div>
+          <div class="accordion-section accordion" id="accordionExample">
+            <div class="one-accordion accordion-item"></div>
+          </div>
+        </div>
+      </div>
+      <p>
+        <button
           class="btn btn-primary"
           type="button"
           data-bs-toggle="collapse"
@@ -51,7 +101,9 @@
                 id="validationCustom01"
                 required
               />
-              <div class="invalid-group-input invalid-feedback validation">Please insert all fields!!</div>
+              <div class="invalid-group-input invalid-feedback validation">
+                Please insert all fields!!
+              </div>
             </div>
             <div class="col-md-4">
               <label for="validationCustom02" class="form-label">Dose:</label>
@@ -61,7 +113,9 @@
                 id="validationCustom02"
                 required
               />
-              <div class="invalid-group-input invalid-feedback validation">Please insert all fields!!</div>
+              <div class="invalid-group-input invalid-feedback validation">
+                Please insert all fields!!
+              </div>
             </div>
             <div class="col-md-4">
               <label for="validationCustomDescription" class="form-label"
