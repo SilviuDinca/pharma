@@ -95,6 +95,12 @@ async function deleteMedication(id) {
   await getMedication();
 }
 
+async function deletePatients(id) {
+  let res = await axios.delete(`http://localhost:8000/api/user/${id}`);
+  console.log(res);
+  await getPatients();
+}
+
 async function getPatients() {
   const res = await axios.get("http://localhost:8000/api/user");
   showPatients(res.data.data);
@@ -161,7 +167,7 @@ const showPatients = (data) => {
     <h2 class="accordion-header mb-2" id="headingOne">
   <div class="d-flex">
   <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="bi bi-pencil"></i></button>
-  <button type="button" class="btn btn-outline-danger btn-del"><i class="bi bi-trash3"></i></button>
+  <button type="button" class="btn btn-outline-danger btn-del" onclick="deletePatients(${item.id})"><i class="bi bi-trash3"></i></button>
                 <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                   ${item.username}
                 </button>

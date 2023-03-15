@@ -73,18 +73,32 @@ app.post("/api/login", (req, res, next) => {
 });
 
 app.get("/api/user", (req, res, next) => {
-  var sql = "select * from user"
-  var params = []
+  var sql = "select * from user";
+  var params = [];
   db.all(sql, params, (err, rows) => {
+    if (err) {
+      res.status(400).json({ error: err.message });
+      return;
+    }
+    res.json({
+      message: "success",
+      data: rows,
+    });
+  });
+});
+
+app.delete("/api/user/:id", (req, res, next) => {
+  db.run(
+    "DELETE FROM user WHERE id = ?",
+    req.params.id,
+    function (err, result) {
       if (err) {
-        res.status(400).json({"error":err.message});
+        res.status(400).json({ error: res.message });
         return;
       }
-      res.json({
-          "message":"success",
-          "data":rows
-      })
-    });
+      res.json({ message: "deleted", changes: this.changes });
+    }
+  );
 });
 
 app.post("/api/medication", (req, res, next) => {
