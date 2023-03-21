@@ -27,6 +27,9 @@ const inputPharmaceutist = document.getElementById("pharmaceutistRadio");
 const inputPatient = document.getElementById("patientRadio");
 const wrongInput = document.querySelector(".wrong-input");
 const invalidGroupInput = document.querySelectorAll(".invalid-group-input");
+let inputSearch = document.querySelector('.search-input')
+
+
 
 async function signUp() {
   const createUser = {
@@ -193,7 +196,7 @@ const showPatients = (data) => {
   data.forEach((item) => {
     listSection += `
     <ul class="list-group">
-      <li class="list-group-item d-flex flex-column mb-1">
+      <li class="list-group-item search-list d-flex flex-column mb-1">
       <div class="d-flex justify-content-between">
       Username: ${item.username}
       <div>
@@ -213,10 +216,24 @@ const showPatients = (data) => {
   </ul>
     `;
   });
-
   listItem.innerHTML = listSection;
-
+  inputSearch.addEventListener('input', filterList)
 };
+
+const filterList = (e) => {
+  const filter = e.target.value
+      const searchList = document.querySelectorAll('.search-list')
+      for (let i = 0; i < searchList.length; i++) {
+        if(searchList[i].textContent.toLowerCase()
+                .includes(filter.toLowerCase())) {
+            searchList[i].classList.remove("d-none");
+            searchList[i].classList.add("d-flex");
+        } else {
+            searchList[i].classList.add("d-none");
+            searchList[i].classList.remove("d-flex");
+        }
+    }
+}
 
 const showMedicine = (data) => {
   cards = "";
