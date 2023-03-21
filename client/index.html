@@ -22,7 +22,7 @@
     </nav>
 
     <img
-      src="./img/PHARMACY HEALTH.png"
+      src="./img/PHARMACY HEALTH.svg"
       class="img-fluid mb-5 z-0 d-none image-container"
       width="100%"
       alt="Pharmacy Health"
@@ -73,8 +73,78 @@
               />
             </div>
           </div>
-          <div class="accordion-section accordion" id="accordionExample">
-            <div class="one-accordion accordion-item"></div>
+          <div class="list-section mt-3">
+            <div class="list-items"></div>
+            <div class="modal fade z-2" id="patient" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Edit the patients</h5>
+                    <button
+                      type="button"
+                      class="btn-close"
+                      data-bs-dismiss="modal"
+                      aria-label="Close"
+                    ></button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="form-floating mb-3">
+                      <input type="text" class="form-control" id="floatingUsername" />
+                      <label for="floatingUsername">Username</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="floatingAddress"
+                      />
+                      <label for="floatingAddress">Address</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="floatingCNP"
+                      />
+                      <label for="floatingCNP">CNP</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="floatingCity"
+                      />
+                      <label for="floatingCity">City</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="floatingPhone"
+                      />
+                      <label for="floatingPhone">Phone</label>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button
+                      type="button"
+                      class="btn btn-secondary"
+                      data-bs-dismiss="modal"
+                    >
+                      Close
+                    </button>
+                    <button
+                      type="button"
+                      class="btn-save btn btn-primary"
+                      onclick="updatePatient()"
+                      data-bs-dismiss="modal"
+                    >
+                      Save changes
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -194,11 +264,11 @@
                   <input type="text" class="form-control" id="floatingName" />
                   <label for="floatingName">Name</label>
                 </div>
-                <div class="form-floating">
+                <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="floatingDose" />
                   <label for="floatingDose">Dose</label>
                 </div>
-                <div class="form-floating">
+                <div class="form-floating mb-3">
                   <input
                     type="text"
                     class="form-control"
@@ -206,7 +276,7 @@
                   />
                   <label for="floatingDescription">Description</label>
                 </div>
-                <div class="form-floating">
+                <div class="form-floating mb-3">
                   <input
                     type="text"
                     class="form-control"
@@ -214,7 +284,7 @@
                   />
                   <label for="floatingExpiration">Expiration Date</label>
                 </div>
-                <div class="form-floating">
+                <div class="form-floating mb-3">
                   <input
                     type="number"
                     class="form-control"
@@ -235,6 +305,7 @@
                   type="button"
                   class="btn-save btn btn-primary"
                   onclick="updateMedication()"
+                  data-bs-dismiss="modal"
                 >
                   Save changes
                 </button>

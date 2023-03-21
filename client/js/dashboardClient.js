@@ -89,15 +89,12 @@ btnSignUp.addEventListener("click", () => {
 });
 
 async function deleteMedication(id) {
-  console.log(id);
   let res = await axios.delete(`http://localhost:8000/api/medication/${id}`);
-  console.log(res);
   await getMedication();
 }
 
 async function deletePatients(id) {
   let res = await axios.delete(`http://localhost:8000/api/user/${id}`);
-  console.log(res);
   await getPatients();
 }
 
@@ -157,36 +154,68 @@ function editMedication(item) {
   document.getElementById("exampleModal").dataset.medicationId = parsedItem.id;
 }
 
-const showPatients = (data) => {
-  let accordionSection = document.querySelector(".accordion-section");
-  const oneAccordion = document.querySelector(".one-accordion");
-  accordionSection = "";
+async function updatePatient() {
+  const id = document.getElementById("patient").dataset.patientId;
+  const updatedPatient = {
+    username: document.getElementById("floatingUsername").value,
+    address: document.getElementById("floatingAddress").value,
+    cnp: document.getElementById("floatingCNP").value,
+    city: document.getElementById("floatingCity").value,
+    phone: document.getElementById("floatingPhone").value,
+  };
 
+  let res = await axios.put(
+    `http://localhost:8000/api/user/${id}`,
+    updatedPatient
+  );
+  console.log(res)
+  getPatients()
+}
+
+function editPatients(item) {
+  const modalFade = document.querySelector('.modal-backdrop')
+  modalFade.style.zIndex = -1
+
+  const parsedItem = JSON.parse(decodeURIComponent(item));
+  document.getElementById("floatingUsername").value = parsedItem.username;
+  document.getElementById("floatingAddress").value = parsedItem.address;
+  document.getElementById("floatingCNP").value =
+    parsedItem.cnp;
+  document.getElementById("floatingCity").value = parsedItem.city;
+  document.getElementById("floatingPhone").value = parsedItem.phone;
+  document.getElementById("patient").dataset.patientId = parsedItem.id;
+}
+
+const showPatients = (data) => {
+  let listSection = document.querySelector(".list-section");
+  const listItem = document.querySelector(".list-items");
+  listSection = "";
   data.forEach((item) => {
-    accordionSection += `
-    <h2 class="accordion-header mb-2" id="headingOne">
-  <div class="d-flex">
-  <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="bi bi-pencil"></i></button>
-  <button type="button" class="btn btn-outline-danger btn-del" onclick="deletePatients(${item.id})"><i class="bi bi-trash3"></i></button>
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                  ${item.username}
-                </button>
-                </div>
-              </h2>
-              <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                  <div class="row">
-                    <div class="col-md-6"><strong>Address:</strong> ${item.address}</div>
-                    <div class="col-md-6"><strong>City:</strong> ${item.address}</div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-6"><strong>Phone:</strong> ${item.phone}</div>
-                  </div>
-                </div>
-              </div>
+    listSection += `
+    <ul class="list-group">
+      <li class="list-group-item d-flex flex-column mb-1">
+      <div class="d-flex justify-content-between">
+      Username: ${item.username}
+      <div>
+        <button type="button" class="btn btn-outline-success me-1" data-bs-toggle="modal" data-bs-target="#patient" onclick="editPatients('${encodeURIComponent(
+          JSON.stringify(item)
+        )}')"><i class="bi bi-pencil"></i></button>
+        <button type="button" class="btn btn-outline-danger btn-del" onclick="deletePatients(${item.id})"><i class="bi bi-trash3"></i></button>
+        </div>
+      </div>
+      <ul class="list-group mt-2">
+      <li class="list-group-item">Address: ${item.address}</li>
+      <li class="list-group-item">CNP: ${item.cnp}</li>
+      <li class="list-group-item">City: ${item.city}</li>
+      <li class="list-group-item">Phone: ${item.phone}</li>
+      </ul>
+      </li>
+  </ul>
     `;
   });
-  oneAccordion.innerHTML = accordionSection;
+
+  listItem.innerHTML = listSection;
+
 };
 
 const showMedicine = (data) => {
