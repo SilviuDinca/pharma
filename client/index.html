@@ -18,6 +18,26 @@
         <a class="navbar-brand text-white d-flex align-items-center" href="#">
           Pharma App
         </a>
+        <div class="avatar d-none dropdown">
+          <button
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            class="dropdown-toggle btn btn-link text-white"
+          >
+            <i class="bi bi-person-circle"></i>
+          </button>
+          <ul class="dropdown-menu position-absolute" style="left: -90px">
+            <li>
+              <button
+                type="button"
+                class="dropdown-item text-danger btn-logout"
+              >
+                <i class="bi bi-box-arrow-left"></i> Logout
+              </button>
+            </li>
+          </ul>
+        </div>
       </div>
     </nav>
 
@@ -75,7 +95,13 @@
           </div>
           <div class="list-section mt-3">
             <div class="list-items"></div>
-            <div class="modal fade z-2" id="patient" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
+            <div
+              class="modal fade z-2"
+              id="patient"
+              tabindex="-1"
+              aria-labelledby="modal-title"
+              aria-hidden="true"
+            >
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
@@ -89,7 +115,11 @@
                   </div>
                   <div class="modal-body">
                     <div class="form-floating mb-3">
-                      <input type="text" class="form-control" id="floatingUsername" />
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="floatingUsername"
+                      />
                       <label for="floatingUsername">Username</label>
                     </div>
                     <div class="form-floating mb-3">
@@ -315,12 +345,12 @@
         </div>
       </div>
     </div>
-    <div class="show-signIn container mt-5 d-none">
+    <div class="show-signIn container mt-5">
       <form class="row g-3">
         <div class="form-floating col-md-6">
           <input
             type="text"
-            class="form-control"
+            class="form-control inputs-signUp"
             id="signInUsername"
             required
           />
@@ -330,7 +360,7 @@
         <div class="form-floating col-md-6">
           <input
             type="password"
-            class="form-control"
+            class="form-control inputs-signUp"
             id="signInPassword"
             required
           />
@@ -339,15 +369,18 @@
       </form>
       <div class="col-12">
         <button class="btn-sign-in btn btn-primary">Sign In</button>
+        <button type="button" class="btn btn-link toSignUp">
+          No account yet? Sign up
+        </button>
       </div>
     </div>
 
-    <div class="hidden-signUp container mt-5 d-grid">
+    <div class="hidden-signUp container mt-5 d-none">
       <form class="row g-3">
         <div class="form-floating col-md-6">
           <input
             type="text"
-            class="form-control inputs"
+            class="form-control inputs-signUp"
             id="inputUsername"
             required
           />
@@ -359,7 +392,7 @@
         <div class="form-floating col-md-6">
           <input
             type="password"
-            class="form-control inputs"
+            class="form-control inputs-signUp"
             id="inputPassword"
             required
           />
@@ -371,7 +404,7 @@
         <div class="form-floating col-md-6">
           <input
             type="text"
-            class="form-control inputs"
+            class="form-control inputs-signUp"
             id="inputAddress"
             required
           />
@@ -383,7 +416,7 @@
         <div class="form-floating col-md-6">
           <input
             type="text"
-            class="form-control inputs"
+            class="form-control inputs-signUp"
             id="inputCNP"
             required
           />
@@ -395,7 +428,7 @@
         <div class="form-floating col-md-6">
           <input
             type="text"
-            class="form-control inputs"
+            class="form-control inputs-signUp"
             id="inputCity"
             required
           />
@@ -407,7 +440,7 @@
         <div class="form-floating col-md-6">
           <input
             type="tel"
-            class="form-control inputs"
+            class="form-control inputs-signUp"
             id="inputPhone"
             required
           />
@@ -443,6 +476,9 @@
       </form>
       <div class="col-12">
         <button class="btn-sign-up btn btn-primary">Sign Up</button>
+        <button type="button" class="btn btn-link toSignIn">
+          Already have an account? Log in
+        </button>
       </div>
     </div>
   </body>

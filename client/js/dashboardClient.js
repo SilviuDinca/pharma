@@ -14,7 +14,7 @@ const showSignIn = document.querySelector(".show-signIn");
 const hiddenSignUp = document.querySelector(".hidden-signUp");
 const imageContainer = document.querySelector(".image-container");
 const containerSection = document.querySelector(".container-section");
-const inputs = document.querySelectorAll(".inputs");
+const inputsSignUp = document.querySelectorAll(".inputs-signUp");
 const signInUsername = document.getElementById("signInUsername");
 const signInPassword = document.getElementById("signInPassword");
 const inputUsername = document.getElementById("inputUsername");
@@ -27,9 +27,64 @@ const inputPharmaceutist = document.getElementById("pharmaceutistRadio");
 const inputPatient = document.getElementById("patientRadio");
 const wrongInput = document.querySelector(".wrong-input");
 const invalidGroupInput = document.querySelectorAll(".invalid-group-input");
-let inputSearch = document.querySelector('.search-input')
+const btnToSignUp = document.querySelector(".toSignUp");
+const btnToSignIn = document.querySelector(".toSignIn");
+const avatar = document.querySelector(".avatar");
+const btnLogout = document.querySelector(".btn-logout");
+let inputSearch = document.querySelector(".search-input");
 
+btnToSignUp.addEventListener("click", () => {
+  showSignIn.classList.add("d-none");
+  hiddenSignUp.classList.remove("d-none");
+  hiddenSignUp.classList.add("d-grid");
+  inputsSignUp.forEach((input) => {
+    input.value = "";
+  });
+});
 
+btnToSignIn.addEventListener("click", () => {
+  hiddenSignUp.classList.remove("d-grid");
+  hiddenSignUp.classList.add("d-none");
+  showSignIn.classList.remove("d-none");
+  inputsSignUp.forEach((input) => {
+    input.value = "";
+  });
+});
+
+btnLogout.addEventListener("click", () => {
+  showSignIn.classList.add("d-grid");
+  showSignIn.classList.remove("d-none");
+  imageContainer.classList.add("d-none");
+  containerSection.classList.add("d-none");
+  imageContainer.classList.remove("d-block");
+  containerSection.classList.remove("d-grid");
+  avatar.classList.add("d-none");
+  signInUsername.value = "";
+  signInPassword.value = "";
+});
+
+btnSignIn.addEventListener("click", signIn);
+
+btnSignUp.addEventListener("click", () => {
+  if (
+    inputUsername.value === "" ||
+    inputPassword.value === "" ||
+    inputAddress.value === "" ||
+    inputCNP.value === "" ||
+    inputCity.value === "" ||
+    inputPhone.value === ""
+  ) {
+    invalidGroupInput.forEach((item) => {
+      item.classList.add("d-grid");
+    });
+  } else {
+    signUp();
+    hiddenSignUp.classList.remove("d-grid");
+    hiddenSignUp.classList.add("d-none");
+    showSignIn.classList.remove("d-none");
+    showSignIn.classList.add("d-grid");
+  }
+});
 
 async function signUp() {
   const createUser = {
@@ -58,6 +113,7 @@ async function signIn() {
     containerSection.classList.remove("d-none");
     imageContainer.classList.add("d-block");
     containerSection.classList.add("d-grid");
+    avatar.classList.remove("d-none");
   } else {
     wrongInput.classList.add("invalid-feedback");
     wrongInput.classList.add("validation");
@@ -67,29 +123,6 @@ async function signIn() {
     signInPassword.value = "";
   }
 }
-
-btnSignIn.addEventListener("click", signIn);
-
-btnSignUp.addEventListener("click", () => {
-  if (
-    inputUsername.value === "" ||
-    inputPassword.value === "" ||
-    inputAddress.value === "" ||
-    inputCNP.value === "" ||
-    inputCity.value === "" ||
-    inputPhone.value === ""
-  ) {
-    invalidGroupInput.forEach((item) => {
-      item.classList.add("d-grid");
-    });
-  } else {
-    signUp();
-    hiddenSignUp.classList.remove("d-grid");
-    hiddenSignUp.classList.add("d-none");
-    showSignIn.classList.remove("d-none");
-    showSignIn.classList.add("d-grid");
-  }
-});
 
 async function deleteMedication(id) {
   let res = await axios.delete(`http://localhost:8000/api/medication/${id}`);
@@ -171,19 +204,18 @@ async function updatePatient() {
     `http://localhost:8000/api/user/${id}`,
     updatedPatient
   );
-  console.log(res)
-  getPatients()
+  console.log(res);
+  getPatients();
 }
 
 function editPatients(item) {
-  const modalFade = document.querySelector('.modal-backdrop')
-  modalFade.style.zIndex = -1
+  const modalFade = document.querySelector(".modal-backdrop");
+  modalFade.style.zIndex = -1;
 
   const parsedItem = JSON.parse(decodeURIComponent(item));
   document.getElementById("floatingUsername").value = parsedItem.username;
   document.getElementById("floatingAddress").value = parsedItem.address;
-  document.getElementById("floatingCNP").value =
-    parsedItem.cnp;
+  document.getElementById("floatingCNP").value = parsedItem.cnp;
   document.getElementById("floatingCity").value = parsedItem.city;
   document.getElementById("floatingPhone").value = parsedItem.phone;
   document.getElementById("patient").dataset.patientId = parsedItem.id;
@@ -203,7 +235,9 @@ const showPatients = (data) => {
         <button type="button" class="btn btn-outline-success me-1" data-bs-toggle="modal" data-bs-target="#patient" onclick="editPatients('${encodeURIComponent(
           JSON.stringify(item)
         )}')"><i class="bi bi-pencil"></i></button>
-        <button type="button" class="btn btn-outline-danger btn-del" onclick="deletePatients(${item.id})"><i class="bi bi-trash3"></i></button>
+        <button type="button" class="btn btn-outline-danger btn-del" onclick="deletePatients(${
+          item.id
+        })"><i class="bi bi-trash3"></i></button>
         </div>
       </div>
       <ul class="list-group mt-2">
@@ -217,23 +251,24 @@ const showPatients = (data) => {
     `;
   });
   listItem.innerHTML = listSection;
-  inputSearch.addEventListener('input', filterList)
+  inputSearch.addEventListener("input", searchPatients);
 };
 
-const filterList = (e) => {
-  const filter = e.target.value
-      const searchList = document.querySelectorAll('.search-list')
-      for (let i = 0; i < searchList.length; i++) {
-        if(searchList[i].textContent.toLowerCase()
-                .includes(filter.toLowerCase())) {
-            searchList[i].classList.remove("d-none");
-            searchList[i].classList.add("d-flex");
-        } else {
-            searchList[i].classList.add("d-none");
-            searchList[i].classList.remove("d-flex");
-        }
+const searchPatients = (e) => {
+  const filter = e.target.value;
+  const searchList = document.querySelectorAll(".search-list");
+  for (let i = 0; i < searchList.length; i++) {
+    if (
+      searchList[i].textContent.toLowerCase().includes(filter.toLowerCase())
+    ) {
+      searchList[i].classList.remove("d-none");
+      searchList[i].classList.add("d-flex");
+    } else {
+      searchList[i].classList.add("d-none");
+      searchList[i].classList.remove("d-flex");
     }
-}
+  }
+};
 
 const showMedicine = (data) => {
   cards = "";
