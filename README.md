@@ -30,11 +30,11 @@ I am a Junior Full Stack Developer from Romania.
 
 - I made a pharmacy application;
 - As technologies, we used: HTML, Bootstrap, JavaScript, Node.js, SQLITE;
-- I have implemented a functionality so that the pharmacist can add, delete or modify medicines;
-- I have implemented a functionality so that the pharmacist can add, delete or modify patients;
-- I have implemented user registration functionality;
-- I have implemented authentication functionality;
-- I have implemented a search bar, searching for a patient in the list by username, address, cnp, city or phone.
+- I implemented a functionality so that the pharmacist can add, delete or modify medicines;
+- I implemented a functionality so that the pharmacist can add, delete or modify patients;
+- I implemented user registration functionality;
+- I implemented authentication functionality;
+- I implemented a search bar, searching for a patient in the list by username, address, cnp, city or phone.
 ---
 
 ### :hammer_and_wrench: Languages and Tools :
