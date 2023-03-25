@@ -25,11 +25,9 @@ app.post("/api/user", (req, res, next) => {
     cnp: req.body.cnp,
     city: req.body.city,
     phone: req.body.phone,
-    pharmaceutist: req.body.pharmaceutist,
-    patient: req.body.patient,
   };
   const sql =
-    "INSERT INTO user (username, password, address, cnp, city, phone, pharmaceutist, patient) VALUES (?,?,?,?,?,?,?,?)";
+    "INSERT INTO user (username, password, address, cnp, city, phone) VALUES (?,?,?,?,?,?)";
   const params = [
     data.username,
     data.password,
@@ -37,8 +35,6 @@ app.post("/api/user", (req, res, next) => {
     data.cnp,
     data.city,
     data.phone,
-    data.pharmaceutist,
-    data.patient,
   ];
   db.run(sql, params, function (err, result) {
     if (err) {
@@ -72,8 +68,8 @@ app.post("/api/login", (req, res, next) => {
   });
 });
 
-app.get("/api/user", (req, res, next) => {
-  var sql = "select * from user";
+app.get("/api/patient", (req, res, next) => {
+  var sql = "select * from patient";
   var params = [];
   db.all(sql, params, (err, rows) => {
     if (err) {
@@ -87,24 +83,54 @@ app.get("/api/user", (req, res, next) => {
   });
 });
 
-app.put("/api/user/:id", (req, res, next) => {
+app.post("/api/patient", (req, res, next) => {
   let data = {
-    username: req.body.username,
+    name: req.body.name,
+    address: req.body.address,
+    cnp: req.body.cnp,
+    city: req.body.city,
+    phone: req.body.phone,
+  };
+  let sql =
+    "INSERT INTO patient (name, address, cnp, city, phone) VALUES (?,?,?,?,?)";
+  let params = [
+    data.name,
+    data.address,
+    data.cnp,
+    data.city,
+    data.phone,
+  ];
+  db.run(sql, params, function (err, result) {
+    if (err) {
+      res.status(400).json({ error: err.message });
+      return;
+    }
+    res.json({
+      message: "success",
+      data: data,
+      id: this.lastID,
+    });
+  });
+});
+
+app.put("/api/patient/:id", (req, res, next) => {
+  let data = {
+    name: req.body.name,
     address: req.body.address,
     cnp: req.body.cnp,
     city: req.body.city,
     phone: req.body.phone,
   };
   db.run(
-    `UPDATE user set 
-         username = COALESCE(?,username), 
+    `UPDATE patient set 
+         name = COALESCE(?,name), 
          address = COALESCE(?,address),
          cnp = COALESCE(?,cnp),
          city = COALESCE(?,city),
          phone = COALESCE(?,phone)
          WHERE id = ?`,
     [
-      data.username,
+      data.name,
       data.address,
       data.cnp,
       data.city,
@@ -125,9 +151,9 @@ app.put("/api/user/:id", (req, res, next) => {
   );
 });
 
-app.delete("/api/user/:id", (req, res, next) => {
+app.delete("/api/patient/:id", (req, res, next) => {
   db.run(
-    "DELETE FROM user WHERE id = ?",
+    "DELETE FROM patient WHERE id = ?",
     req.params.id,
     function (err, result) {
       if (err) {

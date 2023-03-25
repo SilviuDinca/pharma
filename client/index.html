@@ -83,23 +83,21 @@
           ></button>
         </div>
         <div class="offcanvas-body">
-          <div class="col-12">
-            <label for="validationDefaultUsername" class="form-label"
-              >Search patients</label
-            >
+          <div class="d-flex">
             <div class="input-group">
               <span class="input-group-text" id="inputSearch"
                 ><i class="bi bi-search"></i
               ></span>
               <input
                 type="text"
-                class="form-control search-input"
+                class="form-control search-input me-2"
                 id="validationSearch"
                 aria-describedby="inputSearch"
                 placeholder="Search"
                 required
               />
             </div>
+      <button type="button" class="btn btn-outline-primary open-modal-patient" data-bs-toggle="modal" data-bs-target="#add-patient"><i class="bi bi-person-plus"></i></button>
           </div>
           <div class="list-section mt-3">
             <div class="list-items"></div>
@@ -178,6 +176,100 @@
                       data-bs-dismiss="modal"
                     >
                       Save changes
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="modal fade z-3"
+              id="add-patient"
+              tabindex="-1"
+              aria-labelledby="modal-title"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Add Patient</h5>
+                    <button
+                      type="button"
+                      class="btn-close"
+                      data-bs-dismiss="modal"
+                      aria-label="Close"
+                    ></button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="form-floating mb-3">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="createName"
+                      />
+                      <label for="createName">Username</label>
+                      <div class="invalid-group-input invalid-feedback validation">
+                        Please insert all fields!!
+                      </div>
+                    </div>
+                    <div class="form-floating mb-3">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="createAddress"
+                      />
+                      <label for="createAddress">Address</label>
+                      <div class="invalid-group-input invalid-feedback validation">
+                        Please insert all fields!!
+                      </div>
+                    </div>
+                    <div class="form-floating mb-3">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="createCNP"
+                      />
+                      <label for="createCNP">CNP</label>
+                      <div class="invalid-group-input invalid-feedback validation">
+                        Please insert all fields!!
+                      </div>
+                    </div>
+                    <div class="form-floating mb-3">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="createCity"
+                      />
+                      <label for="createCity">City</label>
+                      <div class="invalid-group-input invalid-feedback validation">
+                        Please insert all fields!!
+                      </div>
+                    </div>
+                    <div class="form-floating mb-3">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="createPhone"
+                      />
+                      <label for="createPhone">Phone</label>
+                      <div class="invalid-group-input invalid-feedback validation">
+                        Please insert all fields!!
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button
+                      type="button"
+                      class="btn btn-secondary"
+                      data-bs-dismiss="modal"
+                    >
+                      Close
+                    </button>
+                    <button
+                      type="button"
+                      class="btn-save btn btn-primary btn-add-patient"
+                      data-bs-dismiss="modal"
+                    >
+                      Add patient
                     </button>
                   </div>
                 </div>
@@ -455,30 +547,6 @@
           <label for="inputPhone" class="form-label">Phone</label>
           <div class="invalid-group-input invalid-feedback validation">
             Please insert all fields!!
-          </div>
-        </div>
-        <div class="col-12">
-          <div class="form-check">
-            <input
-              class="form-radio-input"
-              type="radio"
-              name="inlineRadioOptions"
-              id="pharmaceutistRadio"
-            />
-            <label class="form-radio-label" for="pharmaceutistRadio">
-              Pharmaceutist
-            </label>
-          </div>
-        </div>
-        <div class="col-12">
-          <div class="form-check">
-            <input
-              class="form-radio-input"
-              type="radio"
-              name="inlineRadioOptions"
-              id="patientRadio"
-            />
-            <label class="form-radio-label" for="patientRadio"> Patient </label>
           </div>
         </div>
       </form>

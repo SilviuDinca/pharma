@@ -64,10 +64,55 @@ let db = new sqlite3.Database(DBSOURCE, (err) => {
             address text, 
             cnp text,
             city text,
-            phone text,
-            pharmaceutist boolean,
-            patient boolean
+            phone text
             )`
+    );
+    db.run(
+      `CREATE TABLE patient (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name text, 
+            address text, 
+            cnp text,
+            city text,
+            phone text
+            )`,
+        (err) => {
+              if (err) {
+                // Table already created
+              } else {
+                // Table just created, creating some rows
+                let insert =
+                  "INSERT INTO patient (name, address, cnp, city, phone) VALUES (?,?,?,?,?)";
+                db.run(insert, [
+                  "Andrei",
+                  "Strada Eminescu",
+                  "4223344244421",
+                  "Ploiesti",
+                  "0723456345",
+                ]);
+                db.run(insert, [
+                  "Andreea",
+                  "Strada Zablovski",
+                  "5002345683043",
+                  "Ploiesti",
+                  "0798234123",
+                ]);
+                db.run(insert, [
+                  "Filip",
+                  "Strada Alexandru Ioan Cuza",
+                  "5000233544234",
+                  "Breaza",
+                  "0755445554",
+                ]);
+                db.run(insert, [
+                  "Vlad",
+                  "Strada Independentei",
+                  "1000323332890",
+                  "Campina",
+                  "0723332134",
+                ]);
+              }
+            }
     );
   }
 });

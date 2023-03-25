@@ -23,8 +23,6 @@ const inputAddress = document.getElementById("inputAddress");
 const inputCNP = document.getElementById("inputCNP");
 const inputCity = document.getElementById("inputCity");
 const inputPhone = document.getElementById("inputPhone");
-const inputPharmaceutist = document.getElementById("pharmaceutistRadio");
-const inputPatient = document.getElementById("patientRadio");
 const wrongInput = document.querySelector(".wrong-input");
 const invalidGroupInput = document.querySelectorAll(".invalid-group-input");
 const btnToSignUp = document.querySelector(".toSignUp");
@@ -94,8 +92,6 @@ async function signUp() {
     cnp: inputCNP.value,
     city: inputCity.value,
     phone: inputPhone.value,
-    pharmaceutist: inputPharmaceutist.checked,
-    patient: inputPatient.checked,
   };
   const res = await axios.post("http://localhost:8000/api/user", createUser);
 }
@@ -130,13 +126,39 @@ async function deleteMedication(id) {
 }
 
 async function deletePatients(id) {
-  let res = await axios.delete(`http://localhost:8000/api/user/${id}`);
+  let res = await axios.delete(`http://localhost:8000/api/patient/${id}`);
   await getPatients();
 }
 
 async function getPatients() {
-  const res = await axios.get("http://localhost:8000/api/user");
+  const res = await axios.get("http://localhost:8000/api/patient");
   showPatients(res.data.data);
+  const btnAddPatient = document.querySelector(".btn-add-patient");
+  const openModalPatient = document.querySelector(".open-modal-patient");
+  openModalPatient.addEventListener("click", () => {
+    const modalFade = document.querySelector(".modal-backdrop");
+    modalFade.style.zIndex = -1;
+  });
+  const createName = document.getElementById("createName")
+  const createAddress = document.getElementById("createAddress")
+  const createCNP = document.getElementById("createCNP")
+  const createCity = document.getElementById("createCity")
+  const createPhone = document.getElementById("createPhone")
+  
+  btnAddPatient.addEventListener("click", addPatient);
+}
+
+async function addPatient() {
+ 
+  const createPatient = {
+    name: createName.value,
+    address: createAddress.value,
+    cnp: createCNP.value,
+    city: createCity.value,
+    phone: createPhone.value,
+  };
+  const res = await axios.post("http://localhost:8000/api/patient", createPatient);
+  await getPatients();
 }
 
 async function getMedication() {
@@ -175,7 +197,6 @@ async function updateMedication() {
     `http://localhost:8000/api/medication/${id}`,
     updatedMedication
   );
-  console.log(res);
   await getMedication();
 }
 
@@ -193,7 +214,7 @@ function editMedication(item) {
 async function updatePatient() {
   const id = document.getElementById("patient").dataset.patientId;
   const updatedPatient = {
-    username: document.getElementById("floatingUsername").value,
+    name: document.getElementById("floatingUsername").value,
     address: document.getElementById("floatingAddress").value,
     cnp: document.getElementById("floatingCNP").value,
     city: document.getElementById("floatingCity").value,
@@ -201,10 +222,9 @@ async function updatePatient() {
   };
 
   let res = await axios.put(
-    `http://localhost:8000/api/user/${id}`,
+    `http://localhost:8000/api/patient/${id}`,
     updatedPatient
   );
-  console.log(res);
   getPatients();
 }
 
@@ -213,7 +233,7 @@ function editPatients(item) {
   modalFade.style.zIndex = -1;
 
   const parsedItem = JSON.parse(decodeURIComponent(item));
-  document.getElementById("floatingUsername").value = parsedItem.username;
+  document.getElementById("floatingUsername").value = parsedItem.name;
   document.getElementById("floatingAddress").value = parsedItem.address;
   document.getElementById("floatingCNP").value = parsedItem.cnp;
   document.getElementById("floatingCity").value = parsedItem.city;
@@ -230,7 +250,7 @@ const showPatients = (data) => {
     <ul class="list-group">
       <li class="list-group-item search-list d-flex flex-column mb-1">
       <div class="d-flex justify-content-between">
-      Username: ${item.username}
+      Name: ${item.name}
       <div>
         <button type="button" class="btn btn-outline-success me-1" data-bs-toggle="modal" data-bs-target="#patient" onclick="editPatients('${encodeURIComponent(
           JSON.stringify(item)
