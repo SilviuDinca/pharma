@@ -10,7 +10,7 @@
 <div align="center">
 <img src="https://komarev.com/ghpvc/?username=SilviuDinca" />
 <h1>
-  hey there
+  HELLO
   <img src="https://media.giphy.com/media/hvRJCLFzcasrR4ia7z/giphy.gif" width="30px"/>
 </h1>
 <img src="https://media.giphy.com/media/dWesBcTLavkZuG35MI/giphy.gif" width="600" height="300"/>
@@ -28,10 +28,13 @@ I am a Junior Full Stack Developer from Romania.
 
 ### :man_technologist: About this Project:
 
-- I made a pharmacy application.
-- As technologies, we used: HTML, Bootstrap, JavaScript, Node.js, SQLITE.
-- I have implemented a functionality so that the pharmacist can add, delete or modify medicines.
-
+- I made a pharmacy application;
+- As technologies, we used: HTML, Bootstrap, JavaScript, Node.js, SQLITE;
+- I have implemented a functionality so that the pharmacist can add, delete or modify medicines;
+- I have implemented a functionality so that the pharmacist can add, delete or modify patients;
+- I have implemented user registration functionality;
+- I have implemented authentication functionality;
+- I have implemented a search bar, searching for a patient in the list by username, address, cnp, city or phone.
 ---
 
 ### :hammer_and_wrench: Languages and Tools :
