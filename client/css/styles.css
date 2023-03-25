@@ -1,5 +1,9 @@
-@media (max-width:576px) {
-    .medicine{
-        justify-content: center;
-    }
+.card:hover {
+  box-shadow: 5px -5px 30px grey;
+}
+
+@media (max-width: 576px) {
+  .medicine {
+    justify-content: center;
+  }
 }

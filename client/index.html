@@ -13,6 +13,7 @@
     />
   </head>
   <body>
+    <!-- Navigation Bar -->
     <nav class="navbar bg-primary" style="width: 100%">
       <div class="container-fluid">
         <a class="navbar-brand text-white d-flex align-items-center" href="#">
@@ -48,7 +49,7 @@
         </div>
       </div>
     </nav>
-
+    <!-- Image Dashboard -->
     <img
       src="./img/PHARMACY HEALTH.svg"
       class="img-fluid mb-5 z-0 d-none image-container"
@@ -56,6 +57,7 @@
       alt="Pharmacy Health"
     />
     <div class="container d-none container-section">
+      <!-- Open the section with patients -->
       <div class="d-grid col-md-2 mb-3">
         <button
           class="btn btn-primary small"
@@ -84,6 +86,7 @@
         </div>
         <div class="offcanvas-body">
           <div class="d-flex">
+            <!-- Searching patients -->
             <div class="input-group">
               <span class="input-group-text" id="inputSearch"
                 ><i class="bi bi-search"></i
@@ -97,10 +100,19 @@
                 required
               />
             </div>
-      <button type="button" class="btn btn-outline-primary open-modal-patient" data-bs-toggle="modal" data-bs-target="#add-patient"><i class="bi bi-person-plus"></i></button>
+            <button
+              type="button"
+              class="btn btn-outline-primary open-modal-patient"
+              data-bs-toggle="modal"
+              data-bs-target="#add-patient"
+            >
+              <i class="bi bi-person-plus"></i>
+            </button>
           </div>
+          <!-- List with patients -->
           <div class="list-section mt-3">
             <div class="list-items"></div>
+            <!-- Modal for edit patients -->
             <div
               class="modal fade z-2"
               id="patient"
@@ -181,6 +193,7 @@
                 </div>
               </div>
             </div>
+            <!-- Modal for add patient -->
             <div
               class="modal fade z-3"
               id="add-patient"
@@ -201,14 +214,12 @@
                   </div>
                   <div class="modal-body">
                     <div class="form-floating mb-3">
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="createName"
-                      />
+                      <input type="text" class="form-control" id="createName" />
                       <label for="createName">Username</label>
-                      <div class="invalid-group-input invalid-feedback validation">
-                        Please insert all fields!!
+                      <div
+                        class="invalid-group-input invalid-create-name invalid-feedback validation"
+                      >
+                        Please complete the field!!!
                       </div>
                     </div>
                     <div class="form-floating mb-3">
@@ -218,30 +229,28 @@
                         id="createAddress"
                       />
                       <label for="createAddress">Address</label>
-                      <div class="invalid-group-input invalid-feedback validation">
-                        Please insert all fields!!
+                      <div
+                        class="invalid-group-input invalid-create-address invalid-feedback validation"
+                      >
+                        Please complete the field!!!
                       </div>
                     </div>
                     <div class="form-floating mb-3">
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="createCNP"
-                      />
+                      <input type="text" class="form-control" id="createCNP" />
                       <label for="createCNP">CNP</label>
-                      <div class="invalid-group-input invalid-feedback validation">
-                        Please insert all fields!!
+                      <div
+                        class="invalid-group-input invalid-create-cnp invalid-feedback validation"
+                      >
+                        Please complete the field!!!
                       </div>
                     </div>
                     <div class="form-floating mb-3">
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="createCity"
-                      />
+                      <input type="text" class="form-control" id="createCity" />
                       <label for="createCity">City</label>
-                      <div class="invalid-group-input invalid-feedback validation">
-                        Please insert all fields!!
+                      <div
+                        class="invalid-group-input invalid-create-city invalid-feedback validation"
+                      >
+                        Please complete the field!!!
                       </div>
                     </div>
                     <div class="form-floating mb-3">
@@ -251,8 +260,10 @@
                         id="createPhone"
                       />
                       <label for="createPhone">Phone</label>
-                      <div class="invalid-group-input invalid-feedback validation">
-                        Please insert all fields!!
+                      <div
+                        class="invalid-group-input invalid-create-phone invalid-feedback validation"
+                      >
+                        Please complete the field!!!
                       </div>
                     </div>
                   </div>
@@ -278,6 +289,7 @@
           </div>
         </div>
       </div>
+      <!-- Open collapse for add medicine -->
       <div class="add-medicine d-grid col-md-2 mb-4">
         <button
           class="btn btn-primary"
@@ -301,8 +313,10 @@
                 id="validationCustom01"
                 required
               />
-              <div class="invalid-group-input invalid-feedback validation">
-                Please insert all fields!!
+              <div
+                class="invalid-group-input invalid-name invalid-feedback validation"
+              >
+                Please complete the field!!!
               </div>
             </div>
             <div class="col-md-4">
@@ -313,8 +327,10 @@
                 id="validationCustom02"
                 required
               />
-              <div class="invalid-group-input invalid-feedback validation">
-                Please insert all fields!!
+              <div
+                class="invalid-group-input invalid-dose invalid-feedback validation"
+              >
+                Please complete the field!!!
               </div>
             </div>
             <div class="col-md-4">
@@ -329,8 +345,10 @@
                   aria-describedby="inputGroupPrepend"
                   required
                 />
-                <div class="invalid-group-input invalid-feedback validation">
-                  Please insert all fields!!
+                <div
+                  class="invalid-group-input invalid-description invalid-feedback validation"
+                >
+                  Please complete the field!!!
                 </div>
               </div>
             </div>
@@ -345,8 +363,10 @@
                 aria-describedby="inputGroupPrepend"
                 required
               />
-              <div class="invalid-group-input invalid-feedback validation">
-                Please insert all fields!!
+              <div
+                class="invalid-group-input invalid-expiration-date invalid-feedback validation"
+              >
+                Please complete the field!!!
               </div>
             </div>
             <div class="col-md-3">
@@ -358,8 +378,10 @@
                 aria-describedby="inputGroupPrepend"
                 required
               />
-              <div class="invalid-group-input invalid-feedback validation">
-                Please insert all fields!!
+              <div
+                class="invalid-group-input invalid-pieces invalid-feedback validation"
+              >
+                Please complete the field!!!
               </div>
             </div>
 
@@ -370,7 +392,14 @@
       </div>
 
       <div class="section">
-        <div class="medicine row row-cols-4" style="gap: 2rem 2rem"></div>
+        <!-- List with medicines -->
+        <div class="medicine row row-cols-4 mx-0" style="gap: 2rem 2rem"></div>
+        <div
+          class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top"
+        >
+          <p>&copy; 2023 Pharma App, Inc. All rights reserved.</p>
+        </div>
+        <!-- Open modal for edit medicine -->
         <div
           class="modal fade"
           id="exampleModal"
@@ -445,8 +474,11 @@
         </div>
       </div>
     </div>
-    <div class="show-signIn container mt-5 d-flex flex-column align-items-center">
-      <img src="./img/Logo.png" alt="Logo" height="160">
+    <!-- Page Sign In -->
+    <div
+      class="show-signIn container mt-5 d-flex flex-column align-items-center"
+    >
+      <img src="./img/Logo.png" alt="Logo" height="160" />
       <form class="row g-3">
         <div class="form-floating col-md-12">
           <input
@@ -468,15 +500,15 @@
           <label for="signInPassword" class="form-label">Password</label>
         </div>
       </form>
-        <button class="w-25 btn-sign-in btn btn-primary">Sign In</button>
-        <button type="button" class="btn btn-link toSignUp">
-          No account yet? Sign up
-        </button>
+      <button class="w-25 btn-sign-in btn btn-primary">Sign In</button>
+      <button type="button" class="btn btn-link toSignUp">
+        No account yet? Sign up
+      </button>
     </div>
-
+    <!-- Page Sign Up -->
     <div class="hidden-signUp container mt-5 d-none">
       <div class="d-flex justify-content-center">
-        <img src="./img/Logo.png" alt="Logo" height="160">
+        <img src="./img/Logo.png" alt="Logo" height="160" />
       </div>
       <form class="row g-3">
         <div class="form-floating col-md-6">
@@ -487,8 +519,10 @@
             required
           />
           <label for="inputUsername" class="form-label">Username</label>
-          <div class="invalid-group-input invalid-feedback validation">
-            Please insert all fields!!
+          <div
+            class="invalid-group-input invalid-username invalid-feedback validation"
+          >
+            Please complete the field!!!
           </div>
         </div>
         <div class="form-floating col-md-6">
@@ -499,56 +533,24 @@
             required
           />
           <label for="inputPassword" class="form-label">Password</label>
-          <div class="invalid-group-input invalid-feedback validation">
-            Please insert all fields!!
+          <div
+            class="invalid-group-input invalid-password invalid-feedback validation"
+          >
+            Please complete the field!!!
           </div>
         </div>
         <div class="form-floating col-md-6">
           <input
-            type="text"
+            type="email"
             class="form-control inputs-signUp"
-            id="inputAddress"
+            id="inputEmail"
             required
           />
-          <label for="inputAddress" class="form-label">Address</label>
-          <div class="invalid-group-input invalid-feedback validation">
-            Please insert all fields!!
-          </div>
-        </div>
-        <div class="form-floating col-md-6">
-          <input
-            type="text"
-            class="form-control inputs-signUp"
-            id="inputCNP"
-            required
-          />
-          <label for="inputCNP" class="form-label">CNP</label>
-          <div class="invalid-group-input invalid-feedback validation">
-            Please insert all fields!!
-          </div>
-        </div>
-        <div class="form-floating col-md-6">
-          <input
-            type="text"
-            class="form-control inputs-signUp"
-            id="inputCity"
-            required
-          />
-          <label for="inputCity" class="form-label">City</label>
-          <div class="invalid-group-input invalid-feedback validation">
-            Please insert all fields!!
-          </div>
-        </div>
-        <div class="form-floating col-md-6">
-          <input
-            type="tel"
-            class="form-control inputs-signUp"
-            id="inputPhone"
-            required
-          />
-          <label for="inputPhone" class="form-label">Phone</label>
-          <div class="invalid-group-input invalid-feedback validation">
-            Please insert all fields!!
+          <label for="inputEmail" class="form-label">Email</label>
+          <div
+            class="invalid-group-input invalid-email invalid-feedback validation"
+          >
+            Please complete the field!!!
           </div>
         </div>
       </form>

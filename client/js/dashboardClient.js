@@ -1,5 +1,6 @@
 "use strict";
 
+// Select the elements
 let cards = document.querySelector(".section");
 const cardBody = document.querySelector(".medicine");
 const inputName = document.querySelector(".input-name");
@@ -19,18 +20,26 @@ const signInUsername = document.getElementById("signInUsername");
 const signInPassword = document.getElementById("signInPassword");
 const inputUsername = document.getElementById("inputUsername");
 const inputPassword = document.getElementById("inputPassword");
-const inputAddress = document.getElementById("inputAddress");
-const inputCNP = document.getElementById("inputCNP");
-const inputCity = document.getElementById("inputCity");
-const inputPhone = document.getElementById("inputPhone");
+const inputEmail = document.getElementById("inputEmail");
 const wrongInput = document.querySelector(".wrong-input");
 const invalidGroupInput = document.querySelectorAll(".invalid-group-input");
 const btnToSignUp = document.querySelector(".toSignUp");
 const btnToSignIn = document.querySelector(".toSignIn");
 const avatar = document.querySelector(".avatar");
 const btnLogout = document.querySelector(".btn-logout");
+const updateName = document.getElementById("floatingName");
+const updateDose = document.getElementById("floatingDose");
+const updateDescription = document.getElementById("floatingDescription");
+const updateExpirationDate = document.getElementById("floatingExpiration");
+const updatePieces = document.getElementById("floatingPieces");
+const createName = document.getElementById("createName");
+const createAddress = document.getElementById("createAddress");
+const createCNP = document.getElementById("createCNP");
+const createCity = document.getElementById("createCity");
+const createPhone = document.getElementById("createPhone");
 let inputSearch = document.querySelector(".search-input");
 
+// Show Sign Up
 btnToSignUp.addEventListener("click", () => {
   showSignIn.classList.add("d-none");
   hiddenSignUp.classList.remove("d-none");
@@ -40,6 +49,7 @@ btnToSignUp.addEventListener("click", () => {
   });
 });
 
+// Show Sign In
 btnToSignIn.addEventListener("click", () => {
   hiddenSignUp.classList.remove("d-grid");
   hiddenSignUp.classList.add("d-none");
@@ -47,8 +57,13 @@ btnToSignIn.addEventListener("click", () => {
   inputsSignUp.forEach((input) => {
     input.value = "";
   });
+  wrongInput.classList.remove("invalid-feedback");
+  wrongInput.classList.remove("validation");
+  wrongInput.classList.remove("d-grid");
+  wrongInput.textContent = "";
 });
 
+// Exit from Dashboard
 btnLogout.addEventListener("click", () => {
   showSignIn.classList.add("d-grid");
   showSignIn.classList.remove("d-none");
@@ -59,22 +74,35 @@ btnLogout.addEventListener("click", () => {
   avatar.classList.add("d-none");
   signInUsername.value = "";
   signInPassword.value = "";
+  wrongInput.classList.remove("invalid-feedback");
+  wrongInput.classList.remove("validation");
+  wrongInput.classList.remove("d-grid");
+  wrongInput.textContent = "";
 });
 
 btnSignIn.addEventListener("click", signIn);
 
-btnSignUp.addEventListener("click", () => {
-  if (
-    inputUsername.value === "" ||
-    inputPassword.value === "" ||
-    inputAddress.value === "" ||
-    inputCNP.value === "" ||
-    inputCity.value === "" ||
-    inputPhone.value === ""
-  ) {
-    invalidGroupInput.forEach((item) => {
-      item.classList.add("d-grid");
-    });
+// Create Account
+async function signUp() {
+  const createUser = {
+    username: inputUsername.value,
+    password: inputPassword.value,
+    email: inputEmail.value,
+  };
+  const res = await axios.post("http://localhost:8000/api/user", createUser);
+}
+
+const validationSignUp = () => {
+  const invalidUsername = document.querySelector(".invalid-username");
+  const invalidPassword = document.querySelector(".invalid-password");
+  const invalidEmail = document.querySelector(".invalid-email");
+
+  if (inputUsername.value === "") {
+    invalidUsername.classList.add("d-grid");
+  } else if (inputPassword.value === "") {
+    invalidPassword.classList.add("d-grid");
+  } else if (inputEmail.value === "") {
+    invalidEmail.classList.add("d-grid");
   } else {
     signUp();
     hiddenSignUp.classList.remove("d-grid");
@@ -82,27 +110,22 @@ btnSignUp.addEventListener("click", () => {
     showSignIn.classList.remove("d-none");
     showSignIn.classList.add("d-grid");
   }
-});
+};
 
-async function signUp() {
-  const createUser = {
-    username: inputUsername.value,
-    password: inputPassword.value,
-    address: inputAddress.value,
-    cnp: inputCNP.value,
-    city: inputCity.value,
-    phone: inputPhone.value,
-  };
-  const res = await axios.post("http://localhost:8000/api/user", createUser);
-}
+btnSignUp.addEventListener("click", validationSignUp);
 
+// Authentication
 async function signIn() {
   const createUser = {
     username: signInUsername.value,
     password: signInPassword.value,
   };
   const res = await axios.post("http://localhost:8000/api/login", createUser);
-  if (res.data.data[0]) {
+  validationSignIn(res.data.data[0]);
+}
+
+const validationSignIn = (data) => {
+  if (data) {
     showSignIn.classList.remove("d-grid");
     showSignIn.classList.add("d-none");
     imageContainer.classList.remove("d-none");
@@ -118,80 +141,56 @@ async function signIn() {
     signInUsername.value = "";
     signInPassword.value = "";
   }
-}
+};
 
-async function deleteMedication(id) {
-  let res = await axios.delete(`http://localhost:8000/api/medication/${id}`);
-  await getMedication();
-}
-
-async function deletePatients(id) {
-  let res = await axios.delete(`http://localhost:8000/api/patient/${id}`);
-  await getPatients();
-}
-
-async function getPatients() {
-  const res = await axios.get("http://localhost:8000/api/patient");
-  showPatients(res.data.data);
-  const btnAddPatient = document.querySelector(".btn-add-patient");
-  const openModalPatient = document.querySelector(".open-modal-patient");
-  openModalPatient.addEventListener("click", () => {
-    const modalFade = document.querySelector(".modal-backdrop");
-    modalFade.style.zIndex = -1;
-  });
-  const createName = document.getElementById("createName")
-  const createAddress = document.getElementById("createAddress")
-  const createCNP = document.getElementById("createCNP")
-  const createCity = document.getElementById("createCity")
-  const createPhone = document.getElementById("createPhone")
-  
-  btnAddPatient.addEventListener("click", addPatient);
-}
-
-async function addPatient() {
- 
-  const createPatient = {
-    name: createName.value,
-    address: createAddress.value,
-    cnp: createCNP.value,
-    city: createCity.value,
-    phone: createPhone.value,
-  };
-  const res = await axios.post("http://localhost:8000/api/patient", createPatient);
-  await getPatients();
-}
-
+// Get the Medication
 async function getMedication() {
   const res = await axios.get("http://localhost:8000/api/medication");
   showMedicine(res.data.data);
   getPatients();
 
-  addMedicine.addEventListener("click", () => {
-    if (
-      inputName.value === "" ||
-      inputDose.value === "" ||
-      inputDescription.value === "" ||
-      inputExpiration.value === "" ||
-      inputPieces.value === ""
-    ) {
-      invalidGroupInput.forEach((item) => {
-        item.classList.add("d-grid");
-      });
-    } else {
-      addMedication();
-      inputs.forEach((input) => (input.value = ""));
-    }
-  });
+  addMedicine.addEventListener("click", validationAddMedicine);
 }
 
+const validationAddMedicine = () => {
+  const invalidName = document.querySelector(".invalid-name");
+  const invalidDose = document.querySelector(".invalid-dose");
+  const invalidDescription = document.querySelector(".invalid-description");
+  const invalidExpirationDate = document.querySelector(
+    ".invalid-expiration-date"
+  );
+  const invalidPieces = document.querySelector(".invalid-pieces");
+  if (inputName.value === "") {
+    invalidName.classList.add("d-grid");
+  } else if (inputDose.value === "") {
+    invalidDose.classList.add("d-grid");
+  } else if (inputDescription.value === "") {
+    invalidDescription.classList.add("d-grid");
+  } else if (inputExpiration.value === "") {
+    invalidExpirationDate.classList.add("d-grid");
+  } else if (inputPieces.value === "") {
+    invalidPieces.classList.add("d-grid");
+  } else {
+    addMedication();
+    clearInputsMedicines();
+    invalidName.classList.remove("d-grid");
+    invalidDose.classList.remove("d-grid");
+    invalidDescription.classList.remove("d-grid");
+    invalidExpirationDate.classList.remove("d-grid");
+    invalidPieces.classList.remove("d-grid");
+  }
+};
+
+// Update the Medication
 async function updateMedication() {
   const id = document.getElementById("exampleModal").dataset.medicationId;
+
   const updatedMedication = {
-    name: document.getElementById("floatingName").value,
-    dose: document.getElementById("floatingDose").value,
-    description: document.getElementById("floatingDescription").value,
-    expirationDate: document.getElementById("floatingExpiration").value,
-    pieces: document.getElementById("floatingPieces").value,
+    name: updateName.value,
+    dose: updateDose.value,
+    description: updateDescription.value,
+    expirationDate: updateExpirationDate.value,
+    pieces: updatePieces.value,
   };
   let res = await axios.put(
     `http://localhost:8000/api/medication/${id}`,
@@ -202,94 +201,37 @@ async function updateMedication() {
 
 function editMedication(item) {
   const parsedItem = JSON.parse(decodeURIComponent(item));
-  document.getElementById("floatingName").value = parsedItem.name;
-  document.getElementById("floatingDose").value = parsedItem.dose;
-  document.getElementById("floatingDescription").value = parsedItem.description;
-  document.getElementById("floatingExpiration").value =
-    parsedItem.expirationDate;
-  document.getElementById("floatingPieces").value = parsedItem.pieces;
+  updateName.value = parsedItem.name;
+  updateDose.value = parsedItem.dose;
+  updateDescription.value = parsedItem.description;
+  updateExpirationDate.value = parsedItem.expirationDate;
+  updatePieces.value = parsedItem.pieces;
   document.getElementById("exampleModal").dataset.medicationId = parsedItem.id;
 }
 
-async function updatePatient() {
-  const id = document.getElementById("patient").dataset.patientId;
-  const updatedPatient = {
-    name: document.getElementById("floatingUsername").value,
-    address: document.getElementById("floatingAddress").value,
-    cnp: document.getElementById("floatingCNP").value,
-    city: document.getElementById("floatingCity").value,
-    phone: document.getElementById("floatingPhone").value,
-  };
-
-  let res = await axios.put(
-    `http://localhost:8000/api/patient/${id}`,
-    updatedPatient
-  );
-  getPatients();
-}
-
-function editPatients(item) {
-  const modalFade = document.querySelector(".modal-backdrop");
-  modalFade.style.zIndex = -1;
-
-  const parsedItem = JSON.parse(decodeURIComponent(item));
-  document.getElementById("floatingUsername").value = parsedItem.name;
-  document.getElementById("floatingAddress").value = parsedItem.address;
-  document.getElementById("floatingCNP").value = parsedItem.cnp;
-  document.getElementById("floatingCity").value = parsedItem.city;
-  document.getElementById("floatingPhone").value = parsedItem.phone;
-  document.getElementById("patient").dataset.patientId = parsedItem.id;
-}
-
-const showPatients = (data) => {
-  let listSection = document.querySelector(".list-section");
-  const listItem = document.querySelector(".list-items");
-  listSection = "";
-  data.forEach((item) => {
-    listSection += `
-    <ul class="list-group">
-      <li class="list-group-item search-list d-flex flex-column mb-1">
-      <div class="d-flex justify-content-between">
-      Name: ${item.name}
-      <div>
-        <button type="button" class="btn btn-outline-success me-1" data-bs-toggle="modal" data-bs-target="#patient" onclick="editPatients('${encodeURIComponent(
-          JSON.stringify(item)
-        )}')"><i class="bi bi-pencil"></i></button>
-        <button type="button" class="btn btn-outline-danger btn-del" onclick="deletePatients(${
-          item.id
-        })"><i class="bi bi-trash3"></i></button>
-        </div>
-      </div>
-      <ul class="list-group mt-2">
-      <li class="list-group-item">Address: ${item.address}</li>
-      <li class="list-group-item">CNP: ${item.cnp}</li>
-      <li class="list-group-item">City: ${item.city}</li>
-      <li class="list-group-item">Phone: ${item.phone}</li>
-      </ul>
-      </li>
-  </ul>
-    `;
-  });
-  listItem.innerHTML = listSection;
-  inputSearch.addEventListener("input", searchPatients);
-};
-
-const searchPatients = (e) => {
-  const filter = e.target.value;
-  const searchList = document.querySelectorAll(".search-list");
-  for (let i = 0; i < searchList.length; i++) {
-    if (
-      searchList[i].textContent.toLowerCase().includes(filter.toLowerCase())
-    ) {
-      searchList[i].classList.remove("d-none");
-      searchList[i].classList.add("d-flex");
-    } else {
-      searchList[i].classList.add("d-none");
-      searchList[i].classList.remove("d-flex");
+// Create Medication
+async function addMedication() {
+  const createMedication = await axios.post(
+    "http://localhost:8000/api/medication/",
+    {
+      name: inputName.value,
+      dose: inputDose.value,
+      description: inputDescription.value,
+      expirationDate: inputExpiration.value,
+      pieces: inputPieces.value,
     }
-  }
-};
+  );
+  const data = createMedication.data.data;
+  await getMedication();
+}
 
+// Delete Medication
+async function deleteMedication(id) {
+  let res = await axios.delete(`http://localhost:8000/api/medication/${id}`);
+  await getMedication();
+}
+
+// Display Medication
 const showMedicine = (data) => {
   cards = "";
 
@@ -326,19 +268,171 @@ const showMedicine = (data) => {
   cardBody.innerHTML = cards;
 };
 
-async function addMedication() {
-  const createMedication = await axios.post(
-    "http://localhost:8000/api/medication/",
-    {
-      name: inputName.value,
-      dose: inputDose.value,
-      description: inputDescription.value,
-      expirationDate: inputExpiration.value,
-      pieces: inputPieces.value,
-    }
-  );
-  const data = createMedication.data.data;
-  await getMedication();
+// Clear Inputs from Medicines
+const clearInputsMedicines = () => {
+  if (
+    inputName.value &&
+    inputDose.value &&
+    inputDescription.value &&
+    inputExpiration.value &&
+    inputPieces.value
+  ) {
+    inputName.value = "";
+    inputDose.value = "";
+    inputDescription.value = "";
+    inputExpiration.value = "";
+    inputPieces.value = "";
+  }
+};
+
+// Get the Patients
+async function getPatients() {
+  const res = await axios.get("http://localhost:8000/api/patient");
+  showPatients(res.data.data);
+  const btnAddPatient = document.querySelector(".btn-add-patient");
+  const openModalPatient = document.querySelector(".open-modal-patient");
+  openModalPatient.addEventListener("click", () => {
+    const modalFade = document.querySelector(".modal-backdrop");
+    modalFade.style.zIndex = -1;
+  });
+  btnAddPatient.addEventListener("click", validationPatient);
 }
+
+const validationPatient = () => {
+  const invalidCreateName = document.querySelector(".invalid-create-name");
+  const invalidCreateAddress = document.querySelector(
+    ".invalid-create-address"
+  );
+  const invalidCreateCNP = document.querySelector(".invalid-create-cnp");
+  const invalidCreateCity = document.querySelector(".invalid-create-city");
+  const invalidCreatePhone = document.querySelector(".invalid-create-phone");
+  if (createName.value === "") {
+    invalidCreateName.classList.add("d-grid");
+  } else if (createAddress.value === "") {
+    invalidCreateAddress.classList.add("d-grid");
+  } else if (createCNP.value === "") {
+    invalidCreateCNP.classList.add("d-grid");
+  } else if (createCity.value === "") {
+    invalidCreateCity.classList.add("d-grid");
+  } else if (createPhone.value === "") {
+    invalidCreatePhone.classList.add("d-grid");
+  } else {
+    addPatient();
+    createName.value = "";
+    createAddress.value = "";
+    createCNP.value = "";
+    createCity.value = "";
+    createPhone.value = "";
+    invalidCreateName.classList.remove("d-grid");
+    invalidCreateAddress.classList.remove("d-grid");
+    invalidCreateCNP.classList.remove("d-grid");
+    invalidCreateCity.classList.remove("d-grid");
+    invalidCreatePhone.classList.remove("d-grid");
+  }
+};
+
+// Create a Patient
+async function addPatient() {
+  const createPatient = {
+    name: createName.value,
+    address: createAddress.value,
+    cnp: createCNP.value,
+    city: createCity.value,
+    phone: createPhone.value,
+  };
+  const res = await axios.post(
+    "http://localhost:8000/api/patient",
+    createPatient
+  );
+  await getPatients();
+}
+
+// Edit a Patient
+async function updatePatient() {
+  const id = document.getElementById("patient").dataset.patientId;
+  const updatedPatient = {
+    name: document.getElementById("floatingUsername").value,
+    address: document.getElementById("floatingAddress").value,
+    cnp: document.getElementById("floatingCNP").value,
+    city: document.getElementById("floatingCity").value,
+    phone: document.getElementById("floatingPhone").value,
+  };
+
+  let res = await axios.put(
+    `http://localhost:8000/api/patient/${id}`,
+    updatedPatient
+  );
+  getPatients();
+}
+
+function editPatients(item) {
+  const modalFade = document.querySelector(".modal-backdrop");
+  modalFade.style.zIndex = -1;
+
+  const parsedItem = JSON.parse(decodeURIComponent(item));
+  document.getElementById("floatingUsername").value = parsedItem.name;
+  document.getElementById("floatingAddress").value = parsedItem.address;
+  document.getElementById("floatingCNP").value = parsedItem.cnp;
+  document.getElementById("floatingCity").value = parsedItem.city;
+  document.getElementById("floatingPhone").value = parsedItem.phone;
+  document.getElementById("patient").dataset.patientId = parsedItem.id;
+}
+
+// Delete a Patient
+async function deletePatients(id) {
+  let res = await axios.delete(`http://localhost:8000/api/patient/${id}`);
+  await getPatients();
+}
+
+// Display Patients
+const showPatients = (data) => {
+  let listSection = document.querySelector(".list-section");
+  const listItem = document.querySelector(".list-items");
+  listSection = "";
+  data.forEach((item) => {
+    listSection += `
+    <ul class="list-group">
+      <li class="list-group-item search-list d-flex flex-column mb-1">
+      <div class="d-flex justify-content-between">
+      Name: ${item.name}
+      <div>
+        <button type="button" class="btn btn-outline-success me-1" data-bs-toggle="modal" data-bs-target="#patient" onclick="editPatients('${encodeURIComponent(
+          JSON.stringify(item)
+        )}')"><i class="bi bi-pencil"></i></button>
+        <button type="button" class="btn btn-outline-danger btn-del" onclick="deletePatients(${
+          item.id
+        })"><i class="bi bi-trash3"></i></button>
+        </div>
+      </div>
+      <ul class="list-group mt-2">
+      <li class="list-group-item">Address: ${item.address}</li>
+      <li class="list-group-item">CNP: ${item.cnp}</li>
+      <li class="list-group-item">City: ${item.city}</li>
+      <li class="list-group-item">Phone: ${item.phone}</li>
+      </ul>
+      </li>
+  </ul>
+    `;
+  });
+  listItem.innerHTML = listSection;
+  inputSearch.addEventListener("input", searchPatients);
+};
+
+// Searching Patients
+const searchPatients = (e) => {
+  const filter = e.target.value;
+  const searchList = document.querySelectorAll(".search-list");
+  for (let i = 0; i < searchList.length; i++) {
+    if (
+      searchList[i].textContent.toLowerCase().includes(filter.toLowerCase())
+    ) {
+      searchList[i].classList.remove("d-none");
+      searchList[i].classList.add("d-flex");
+    } else {
+      searchList[i].classList.add("d-none");
+      searchList[i].classList.remove("d-flex");
+    }
+  }
+};
 
 getMedication();
