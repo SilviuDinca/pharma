@@ -57,7 +57,7 @@ let db = new sqlite3.Database(DBSOURCE, (err) => {
       }
     );
     db.run(
-      `CREATE TABLE user (
+      `CREATE TABLE IF NOT EXISTS user (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             username text, 
             password text, 
